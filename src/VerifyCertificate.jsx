@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { supabase } from "../../utils/supabaseClient";
+import { supabase } from "./utils/supabaseClient";
+
 import { QRCodeCanvas } from "qrcode.react";
 
 
