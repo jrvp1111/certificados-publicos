@@ -211,7 +211,7 @@ export default function VerifyCertificate() {
 <div className="mt-10 flex flex-col items-center gap-2">
   <div className="p-4 bg-white border rounded-lg shadow-sm">
     <QRCodeCanvas
-      value={`${window.location.origin}/verify/${certificate.token}`}
+      value={`https://certificados.distribuidoradeoccidente.com/verify/${certificate.token}`}
       size={160}
       level="H"
       includeMargin={true}
