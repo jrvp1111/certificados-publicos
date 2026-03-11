@@ -208,16 +208,7 @@ export default function VerifyCertificate() {
 
             </div>
 
-          {certificate?.certifiable_product?.producto?.imagen && (
-          <div className="border rounded-lg p-4 flex justify-center">
-            <img
-              src={certificate.certifiable_product.producto.imagen}
-              alt="Equipo certificado"
-              className="max-h-56 object-contain"
-            />
-          </div>
-        )}
-
+            
           <div className="border rounded-lg p-4">
             <div className="text-xs text-gray-500 mb-1">FECHA DE EMISIÓN</div>
             <div className="font-semibold">{fmtDate(certificate.issue_date)}</div>
