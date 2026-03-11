@@ -111,12 +111,24 @@ export default function VerifyCertificate() {
   }, [certificate]);
 
   const sucursalAlias = useMemo(() => {
-  const index = certificate?.shipping_address_index;
   const envios = certificate?.client?.direcciones?.envio;
 
-  if (!envios || index === null || index === undefined) return null;
+  if (!envios) return null;
 
-  return envios[index]?.alias || null;
+  // caso 1: se guardó el índice
+  if (
+    certificate?.shipping_address_index !== null &&
+    certificate?.shipping_address_index !== undefined
+  ) {
+    return envios[certificate.shipping_address_index]?.alias || null;
+  }
+
+  // caso 2: fallback al primer domicilio
+  if (Array.isArray(envios) && envios.length > 0) {
+    return envios[0]?.alias || null;
+  }
+
+  return null;
 }, [certificate]);
 
   const statusPillClass = useMemo(() => {
@@ -182,7 +194,7 @@ export default function VerifyCertificate() {
         </div>
 
         <div className="mt-6 text-center">
-          <div className="font-semibold text-lg">
+          <div className="font-semibold text-lg leading-snug break-words">
             {certificate.equipment_label_snapshot}
           </div>
 
