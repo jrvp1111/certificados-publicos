@@ -191,15 +191,6 @@ export default function VerifyCertificate() {
             </div>
           </div>
 
-          {sucursalAlias && (
-            <div>
-              <div className="text-xs text-gray-500 mb-1">SUCURSAL</div>
-              <div className="font-semibold">
-                {sucursalAlias}
-              </div>
-            </div>
-          )}
-
         </div>
             {sucursalAlias && (
             <div className="border rounded-lg p-4">
@@ -256,6 +247,7 @@ export default function VerifyCertificate() {
               </div>
             </div>
 
+          </div>
           </div>
 
         <div className="mt-6">
