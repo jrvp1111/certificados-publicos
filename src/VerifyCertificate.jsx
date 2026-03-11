@@ -183,12 +183,24 @@ export default function VerifyCertificate() {
 
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="border rounded-lg p-4">
+
+          <div className="mb-3">
             <div className="text-xs text-gray-500 mb-1">CLIENTE</div>
             <div className="font-semibold">
               {certificate.client?.razon_social || "—"}
             </div>
           </div>
 
+          {sucursalAlias && (
+            <div>
+              <div className="text-xs text-gray-500 mb-1">SUCURSAL</div>
+              <div className="font-semibold">
+                {sucursalAlias}
+              </div>
+            </div>
+          )}
+
+        </div>
             {sucursalAlias && (
             <div className="border rounded-lg p-4">
               <div className="text-xs text-gray-500 mb-1">SUCURSAL</div>
