@@ -210,13 +210,12 @@ export default function VerifyCertificate() {
             </div>
           )}
 
-          <div className="border rounded-lg p-4 flex flex-col md:flex-row items-center gap-6">
-
+          <div className="border rounded-lg p-4 md:col-span-2 flex flex-col md:flex-row items-start gap-6">
               {certificate?.certifiable_product?.producto?.imagen && (
                 <img
                   src={certificate.certifiable_product.producto.imagen}
                   alt="Equipo certificado"
-                  className="max-h-40 object-contain rounded-md border"
+                  className="w-32 h-32 object-contain rounded-md border bg-white p-2"
                 />
               )}
 
@@ -224,7 +223,7 @@ export default function VerifyCertificate() {
 
                 <div>
                   <div className="text-xs text-gray-500">EQUIPO CERTIFICADO</div>
-                  <div className="font-semibold text-lg break-words">  
+                  <div className="font-semibold text-lg leading-snug"> 
                      {certificate.equipment_label_snapshot || "—"}
                   </div>
                 </div>
