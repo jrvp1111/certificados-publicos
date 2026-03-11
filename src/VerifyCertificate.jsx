@@ -201,17 +201,6 @@ export default function VerifyCertificate() {
             </div>
           )}
 
-          <div className="border rounded-lg p-4 md:col-span-2 flex flex-col md:flex-row items-start gap-6">
-              {certificate?.certifiable_product?.producto?.imagen && (
-                <img
-                  src={certificate.certifiable_product.producto.imagen}
-                  alt="Equipo certificado"
-                  className="w-32 h-32 object-contain rounded-md border bg-white p-2"
-                />
-              )}
-
-              <div className="flex flex-col gap-2 text-left">
-
                 <div>
                   <div className="text-xs text-gray-500">EQUIPO CERTIFICADO</div>
                   <div className="font-semibold text-lg leading-snug"> 
@@ -225,6 +214,19 @@ export default function VerifyCertificate() {
                     {certificate.serial_number || "—"}
                   </div>
                 </div>
+
+          <div className="border rounded-lg p-4 md:col-span-2 flex flex-col md:flex-row items-start gap-6">
+              {certificate?.certifiable_product?.producto?.imagen && (
+                <img
+                  src={certificate.certifiable_product.producto.imagen}
+                  alt="Equipo certificado"
+                  className="w-32 h-32 object-contain rounded-md border bg-white p-2"
+                />
+              )}
+
+              <div className="flex flex-col gap-2 text-left">
+
+               
 
               </div>
 
