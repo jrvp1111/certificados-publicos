@@ -192,14 +192,8 @@ export default function VerifyCertificate() {
           </div>
 
         </div>
-            {sucursalAlias && (
-            <div className="border rounded-lg p-4">
-              <div className="text-xs text-gray-500 mb-1">SUCURSAL</div>
-              <div className="font-semibold">
-                {sucursalAlias}
-              </div>
-            </div>
-          )}
+
+        <div className="flex flex-col gap-2 text-left">
 
                 <div>
                   <div className="text-xs text-gray-500">EQUIPO CERTIFICADO</div>
@@ -215,6 +209,17 @@ export default function VerifyCertificate() {
                   </div>
                 </div>
 
+              </div>
+              
+            {sucursalAlias && (
+            <div className="border rounded-lg p-4">
+              <div className="text-xs text-gray-500 mb-1">SUCURSAL</div>
+              <div className="font-semibold">
+                {sucursalAlias}
+              </div>
+            </div>
+          )}
+
           <div className="border rounded-lg p-4 md:col-span-2 flex flex-col md:flex-row items-start gap-6">
               {certificate?.certifiable_product?.producto?.imagen && (
                 <img
@@ -224,11 +229,7 @@ export default function VerifyCertificate() {
                 />
               )}
 
-              <div className="flex flex-col gap-2 text-left">
-
-               
-
-              </div>
+              
 
             </div>
 
