@@ -181,6 +181,18 @@ export default function VerifyCertificate() {
 
         </div>
 
+        <div className="mt-6 text-center">
+          <div className="font-semibold text-lg">
+            {certificate.equipment_label_snapshot}
+          </div>
+
+          <div className="text-xs text-gray-500 mt-2">NÚMERO DE SERIE</div>
+
+          <div className="font-mono text-blue-700 font-semibold">
+            {certificate.serial_number}
+          </div>
+        </div>
+
        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
 
   {/* COLUMNA IZQUIERDA */}
@@ -222,7 +234,7 @@ export default function VerifyCertificate() {
 
 
   {/* COLUMNA DERECHA (IMAGEN) */}
-  <div className="border rounded-lg p-4 flex items-center justify-center">
+  <div className="border rounded-lg p-4 flex items-center justify-center min-h-[180px]">
 
     {certificate?.certifiable_product?.producto?.imagen && (
       <img
