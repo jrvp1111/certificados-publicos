@@ -59,21 +59,24 @@ export default function VerifyCertificate() {
       // ✅ Seleccionamos SOLO lo público (snapshots + razón social)
       const { data, error } = await supabase
         .from("certificates")
-        .select(
-          `
-          folio,
-          token,
-          issue_date,
-          valid_until,
-          revoked,
-          equipment_label_snapshot,
-          conformity_text_snapshot,
-          scope_text_snapshot,
-          client:client_id (
-            razon_social
-          )
-        `
-        )
+        .select(`
+  folio,
+  token,
+  issue_date,
+  valid_until,
+  revoked,
+  equipment_label_snapshot,
+  conformity_text_snapshot,
+  scope_text_snapshot,
+  client:client_id (
+    razon_social
+  ),
+  certifiable_product:certifiable_product_id (
+    producto:producto_id (
+      imagen
+    )
+  )
+`)
         .eq("token", token)
         .single();
 
@@ -180,6 +183,16 @@ export default function VerifyCertificate() {
               {certificate.equipment_label_snapshot || "—"}
             </div>
           </div>
+
+          {certificate?.certifiable_product?.producto?.imagen && (
+          <div className="border rounded-lg p-4 flex justify-center">
+            <img
+              src={certificate.certifiable_product.producto.imagen}
+              alt="Equipo certificado"
+              className="max-h-56 object-contain"
+            />
+          </div>
+        )}
 
           <div className="border rounded-lg p-4">
             <div className="text-xs text-gray-500 mb-1">FECHA DE EMISIÓN</div>
