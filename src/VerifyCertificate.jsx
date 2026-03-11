@@ -60,24 +60,26 @@ export default function VerifyCertificate() {
       const { data, error } = await supabase
         .from("certificates")
         .select(`
-  folio,
-  token,
-  serial_number,
-  issue_date,
-  valid_until,
-  revoked,
-  equipment_label_snapshot,
-  conformity_text_snapshot,
-  scope_text_snapshot,
-  client:client_id (
-    razon_social
-  ),
-  certifiable_product:certifiable_product_id (
-    producto:producto_id (
-      imagen
-    )
-  )
-`)
+          folio,
+          token,
+          serial_number,
+          issue_date,
+          valid_until,
+          revoked,
+          shipping_address_index,
+          equipment_label_snapshot,
+          conformity_text_snapshot,
+          scope_text_snapshot,
+          client:client_id (
+            razon_social,
+            direcciones
+          ),
+          certifiable_product:certifiable_product_id (
+            producto:producto_id (
+              imagen
+            )
+          )
+        `)
         .eq("token", token)
         .single();
 
@@ -107,6 +109,15 @@ export default function VerifyCertificate() {
       valid_until: certificate.valid_until,
     });
   }, [certificate]);
+
+  const sucursalAlias = useMemo(() => {
+  const index = certificate?.shipping_address_index;
+  const envios = certificate?.client?.direcciones?.envio;
+
+  if (!envios || index === null || index === undefined) return null;
+
+  return envios[index]?.alias || null;
+}, [certificate]);
 
   const statusPillClass = useMemo(() => {
     if (!status) return "bg-gray-600";
@@ -178,6 +189,15 @@ export default function VerifyCertificate() {
             </div>
           </div>
 
+            {sucursalAlias && (
+            <div className="border rounded-lg p-4">
+              <div className="text-xs text-gray-500 mb-1">SUCURSAL</div>
+              <div className="font-semibold">
+                {sucursalAlias}
+              </div>
+            </div>
+          )}
+
           <div className="border rounded-lg p-4 flex flex-col md:flex-row items-center gap-6">
 
               {certificate?.certifiable_product?.producto?.imagen && (
@@ -192,8 +212,8 @@ export default function VerifyCertificate() {
 
                 <div>
                   <div className="text-xs text-gray-500">EQUIPO CERTIFICADO</div>
-                  <div className="font-semibold text-lg">
-                    {certificate.equipment_label_snapshot || "—"}
+                  <div className="font-semibold text-lg break-words">  
+                     {certificate.equipment_label_snapshot || "—"}
                   </div>
                 </div>
 
@@ -208,7 +228,7 @@ export default function VerifyCertificate() {
 
             </div>
 
-            
+
           <div className="border rounded-lg p-4">
             <div className="text-xs text-gray-500 mb-1">FECHA DE EMISIÓN</div>
             <div className="font-semibold">{fmtDate(certificate.issue_date)}</div>
