@@ -62,6 +62,7 @@ export default function VerifyCertificate() {
         .select(`
   folio,
   token,
+  serial_number,
   issue_date,
   valid_until,
   revoked,
@@ -177,12 +178,35 @@ export default function VerifyCertificate() {
             </div>
           </div>
 
-          <div className="border rounded-lg p-4">
-            <div className="text-xs text-gray-500 mb-1">EQUIPO</div>
-            <div className="font-semibold">
-              {certificate.equipment_label_snapshot || "—"}
+          <div className="border rounded-lg p-4 flex flex-col md:flex-row items-center gap-6">
+
+              {certificate?.certifiable_product?.producto?.imagen && (
+                <img
+                  src={certificate.certifiable_product.producto.imagen}
+                  alt="Equipo certificado"
+                  className="max-h-40 object-contain rounded-md border"
+                />
+              )}
+
+              <div className="flex flex-col gap-2 text-left">
+
+                <div>
+                  <div className="text-xs text-gray-500">EQUIPO CERTIFICADO</div>
+                  <div className="font-semibold text-lg">
+                    {certificate.equipment_label_snapshot || "—"}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-xs text-gray-500">NÚMERO DE SERIE</div>
+                  <div className="font-mono font-semibold text-blue-700">
+                    {certificate.serial_number || "—"}
+                  </div>
+                </div>
+
+              </div>
+
             </div>
-          </div>
 
           {certificate?.certifiable_product?.producto?.imagen && (
           <div className="border rounded-lg p-4 flex justify-center">
