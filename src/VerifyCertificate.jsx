@@ -241,15 +241,22 @@ export default function VerifyCertificate() {
 
 
           <div className="border rounded-lg p-4">
-            <div className="text-xs text-gray-500 mb-1">FECHA DE EMISIÓN</div>
-            <div className="font-semibold">{fmtDate(certificate.issue_date)}</div>
-          </div>
 
-          <div className="border rounded-lg p-4">
-            <div className="text-xs text-gray-500 mb-1">VIGENCIA HASTA</div>
-            <div className="font-semibold">{fmtDate(certificate.valid_until)}</div>
+            <div className="mb-3">
+              <div className="text-xs text-gray-500 mb-1">FECHA DE EMISIÓN</div>
+              <div className="font-semibold">
+                {fmtDate(certificate.issue_date)}
+              </div>
+            </div>
+
+            <div>
+              <div className="text-xs text-gray-500 mb-1">VIGENCIA HASTA</div>
+              <div className="font-semibold">
+                {fmtDate(certificate.valid_until)}
+              </div>
+            </div>
+
           </div>
-        </div>
 
         <div className="mt-6">
           <div className="border rounded-lg p-4 mb-4">
