@@ -181,78 +181,60 @@ export default function VerifyCertificate() {
 
         </div>
 
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="border rounded-lg p-4">
+       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
 
-          <div className="mb-3">
-            <div className="text-xs text-gray-500 mb-1">CLIENTE</div>
-            <div className="font-semibold">
-              {certificate.client?.razon_social || "—"}
-            </div>
-          </div>
+  {/* COLUMNA IZQUIERDA */}
+  <div className="flex flex-col gap-4">
 
+    <div className="border rounded-lg p-4">
+      <div className="text-xs text-gray-500 mb-1">CLIENTE</div>
+      <div className="font-semibold">
+        {certificate.client?.razon_social || "—"}
+      </div>
+
+      {sucursalAlias && (
+        <>
+          <div className="text-xs text-gray-500 mt-3">SUCURSAL</div>
+          <div className="font-semibold">{sucursalAlias}</div>
+        </>
+      )}
+    </div>
+
+    <div className="border rounded-lg p-4 flex gap-8">
+
+      <div>
+        <div className="text-xs text-gray-500 mb-1">FECHA DE EMISIÓN</div>
+        <div className="font-semibold">
+          {fmtDate(certificate.issue_date)}
         </div>
+      </div>
 
-        <div className="flex flex-col gap-2 text-left">
+      <div>
+        <div className="text-xs text-gray-500 mb-1">VIGENCIA HASTA</div>
+        <div className="font-semibold">
+          {fmtDate(certificate.valid_until)}
+        </div>
+      </div>
 
-                <div>
-                  <div className="text-xs text-gray-500">EQUIPO CERTIFICADO</div>
-                  <div className="font-semibold text-lg leading-snug"> 
-                     {certificate.equipment_label_snapshot || "—"}
-                  </div>
-                </div>
+    </div>
 
-                <div>
-                  <div className="text-xs text-gray-500">NÚMERO DE SERIE</div>
-                  <div className="font-mono font-semibold text-blue-700">
-                    {certificate.serial_number || "—"}
-                  </div>
-                </div>
-
-              </div>
-              
-            {sucursalAlias && (
-            <div className="border rounded-lg p-4">
-              <div className="text-xs text-gray-500 mb-1">SUCURSAL</div>
-              <div className="font-semibold">
-                {sucursalAlias}
-              </div>
-            </div>
-          )}
-
-          <div className="border rounded-lg p-4 md:col-span-2 flex flex-col md:flex-row items-start gap-6">
-              {certificate?.certifiable_product?.producto?.imagen && (
-                <img
-                  src={certificate.certifiable_product.producto.imagen}
-                  alt="Equipo certificado"
-                  className="w-32 h-32 object-contain rounded-md border bg-white p-2"
-                />
-              )}
-
-              
-
-            </div>
+  </div>
 
 
-          <div className="border rounded-lg p-4">
+  {/* COLUMNA DERECHA (IMAGEN) */}
+  <div className="border rounded-lg p-4 flex items-center justify-center">
 
-            <div className="mb-3">
-              <div className="text-xs text-gray-500 mb-1">FECHA DE EMISIÓN</div>
-              <div className="font-semibold">
-                {fmtDate(certificate.issue_date)}
-              </div>
-            </div>
+    {certificate?.certifiable_product?.producto?.imagen && (
+      <img
+        src={certificate.certifiable_product.producto.imagen}
+        alt="Equipo certificado"
+        className="w-44 h-44 object-contain"
+      />
+    )}
 
-            <div>
-              <div className="text-xs text-gray-500 mb-1">VIGENCIA HASTA</div>
-              <div className="font-semibold">
-                {fmtDate(certificate.valid_until)}
-              </div>
-            </div>
+  </div>
 
-          </div>
-          </div>
-
+</div>
         <div className="mt-6">
           <div className="border rounded-lg p-4 mb-4">
             <div className="text-xs text-gray-500 mb-2">TEXTO DE CONFORMIDAD</div>
