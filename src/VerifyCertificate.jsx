@@ -59,27 +59,28 @@ export default function VerifyCertificate() {
       // ✅ Seleccionamos SOLO lo público (snapshots + razón social)
       const { data, error } = await supabase
         .from("certificates")
-        .select(`
-          folio,
-          token,
-          serial_number,
-          issue_date,
-          valid_until,
-          revoked,
-          shipping_address_index,
-          equipment_label_snapshot,
-          conformity_text_snapshot,
-          scope_text_snapshot,
-          client:client_id (
-            razon_social,
-            direcciones
-          ),
-          certifiable_product:certifiable_product_id (
-            producto:producto_id (
-              imagen
-            )
-          )
-        `)
+.select(`
+  folio,
+  token,
+  serial_number,
+  issue_date,
+  valid_until,
+  revoked,
+  address_key,
+  shipping_address_index,
+  equipment_label_snapshot,
+  conformity_text_snapshot,
+  scope_text_snapshot,
+  client:client_id (
+    razon_social,
+    direcciones
+  ),
+  certifiable_product:certifiable_product_id (
+    producto:producto_id (
+      imagen
+    )
+  )
+`)
         .eq("token", token)
         .single();
 
@@ -110,12 +111,25 @@ export default function VerifyCertificate() {
     });
   }, [certificate]);
 
-  const sucursalAlias = useMemo(() => {
+  
+const sucursalAlias = useMemo(() => {
   const envios = certificate?.client?.direcciones?.envio;
 
-  if (!envios) return null;
+  if (!Array.isArray(envios) || envios.length === 0) return null;
 
-  // caso 1: se guardó el índice
+  // 1) usar address_key si existe
+  if (
+    certificate?.address_key !== null &&
+    certificate?.address_key !== undefined &&
+    certificate?.address_key !== ""
+  ) {
+    const index = Number(certificate.address_key);
+    if (!Number.isNaN(index)) {
+      return envios[index]?.alias || null;
+    }
+  }
+
+  // 2) fallback a shipping_address_index si existe
   if (
     certificate?.shipping_address_index !== null &&
     certificate?.shipping_address_index !== undefined
@@ -123,14 +137,10 @@ export default function VerifyCertificate() {
     return envios[certificate.shipping_address_index]?.alias || null;
   }
 
-  // caso 2: fallback al primer domicilio
-  if (Array.isArray(envios) && envios.length > 0) {
-    return envios[0]?.alias || null;
-  }
-
-  return null;
+  // 3) último fallback
+  return envios[0]?.alias || null;
 }, [certificate]);
-
+  
   const statusPillClass = useMemo(() => {
     if (!status) return "bg-gray-600";
     if (status.key === "vigente") return "bg-green-600";
